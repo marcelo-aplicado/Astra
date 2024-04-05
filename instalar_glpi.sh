@@ -17,7 +17,7 @@ wget -O- https://github.com/glpi-project/glpi/releases/download/10.0.14/glpi-10.
 
 echo "Configurar permissões no diretório..."
 
-chown www-data. /var/www/html/glpi -Rf
+chown www-data:www-data /var/www/html/glpi -Rf
 find /var/www/html/glpi -type d -exec chmod 755 {} \;
 find /var/www/html/glpi -type f -exec chmod 644 {} \;
 
@@ -26,17 +26,17 @@ apt install -y mariadb-server
 
 echo "Criação do banco de dados..."
 mysql -e "create database glpidb character set utf8"
-mysql -e "create user 'glpi'@'localhost' identified by '123456'"
+mysql -e "create user 'glpi'@'localhost' identified by 'glpi_aplicado'"
 mysql -e "grant all privileges on glpidb.* to 'glpi'@'localhost' with grant option";
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -p -u root mysql
 mysql -e "GRANT SELECT ON mysql.time_zone_name TO 'glpi'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
 
 echo "Instalação do GLPI..."
-php /var/www/html/glpi/bin/console glpi:database:install --db-host=localhost --db-name=glpidb --db-user=glpi --db-password=123456
+php /var/www/html/glpi/bin/console glpi:database:install --db-host=localhost --db-name=glpidb --db-user=glpi --db-password=glpi_aplicado
 
 echo "Reajustar permissões..."
-chown www-data. /var/www/html/glpi/files -Rf
+chown www-data:www-data /var/www/html/glpi/files -Rf
 
 
 echo "habilitando apache2 no inicializador ..."
