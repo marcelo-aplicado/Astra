@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#Para instalar direto utilize: sudo bash -c "$(wget -O- https://github.com/marcelo-aplicado/Astra/raw/main/instalar_glpi.sh)"
+
+
 echo "Atualizar e realizar upgrade no sistema..."
 apt update -y
 apt upgrade -y
