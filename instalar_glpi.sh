@@ -35,7 +35,7 @@ echo "Reajustar permissões..."
 chown www-data:www-data /var/www/html/glpi/files -Rf
 
 echo "Alterar VHOST"
-sed -i 's/^DocumentRoot .*/DocumentRoot \/var\/www\/html\/glpi/g' /etc/apache2/sites-enabled/000-default.conf
+sed -i 's/^        DocumentRoot .*/        DocumentRoot \/var\/www\/html\/glpi/g' /etc/apache2/sites-enabled/000-default.conf
 
 echo "Corrigindo falhas de segurança..."
 sed -i 's/$this->validated = false;/$this->validated = false;return;/g' /var/www/html/glpi/src/System/Requirement/SafeDocumentRoot.php
