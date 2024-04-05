@@ -38,8 +38,9 @@ echo "Alterar VHOST"
 sed -i 's|DocumentRoot /var/www/html$|DocumentRoot /var/www/html/glpi|' /etc/apache2/sites-enabled/000-default.conf
 
 echo "Corrigindo falhas de segurança..."
-sed -i 's/$this->validated = false;/$this->validated = false;return;/g' /var/www/html/glpi/src/System/Requirement/SafeDocumentRoot.php
 rm /var/www/html/glpi/install/install.php
+sed -i 's|$this->validated = false;|$this->validated = false;return;|g' /var/www/html/glpi/src/System/Requirement/SafeDocumentRoot.php
+sed -i 's|^session.cookie_httponly =$|session.cookie_httponly = on|' /etc/php/8.2/apache2/php.ini
 
 echo "habilitando apache2 no inicializador ..."
 systemctl enable apache2
