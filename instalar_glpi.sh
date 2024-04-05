@@ -34,6 +34,9 @@ php /var/www/html/glpi/bin/console glpi:database:install --db-host=localhost --d
 echo "Reajustar permissões..."
 chown www-data:www-data /var/www/html/glpi/files -Rf
 
+echo "Alterar VHOST"
+sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/glpi/g' /etc/apache2/sites-enabled/000-default.conf
+
 echo "Corrigindo falhas de segurança..."
 sed -i 's/$this->validated = false;/$this->validated = false;return;/g' /var/www/html/glpi/src/System/Requirement/SafeDocumentRoot.php
 rm /var/www/html/glpi/install/install.php
